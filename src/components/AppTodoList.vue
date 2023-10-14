@@ -8,6 +8,7 @@
         text: todo.text,
         completed: todo.completed,
       }"
+      @toggleTodo="changeTodoStatus"
     />
   </ul>
 </template>
@@ -50,6 +51,12 @@ export default defineComponent({
         },
       ],
     };
+  },
+  methods: {
+    changeTodoStatus(id: number) {
+      const targetTodo = this.todos.find((todo: Todo) => todo.id === id);
+      targetTodo && (targetTodo.completed = !targetTodo.completed);
+    },
   },
 });
 </script>
