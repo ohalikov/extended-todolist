@@ -12,15 +12,11 @@
 
 <script lang="ts">
 import { PropType, defineComponent } from 'vue';
-
+import { Todo } from '@/types/Todo';
 export default defineComponent({
   props: {
     todo: {
-      type: Object as PropType<{
-        id: number;
-        text: string;
-        completed: boolean;
-      }>,
+      type: Object as PropType<Todo>,
       requiried: true,
     },
   },

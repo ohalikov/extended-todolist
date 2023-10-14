@@ -15,11 +15,17 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import AppTodoItem from './AppTodoItem.vue';
+import { Todo } from '@/types/Todo';
+
+interface State {
+  todos: Todo[];
+}
+
 export default defineComponent({
   components: {
     AppTodoItem,
   },
-  data() {
+  data(): State {
     return {
       todos: [
         {
