@@ -4,11 +4,12 @@
       v-for="(todo, index) in todos"
       :key="index"
       :todo="{
-        id: index,
+        id: todo.id,
         text: todo.text,
         completed: todo.completed,
       }"
       @toggleTodo="changeTodoStatus"
+      @removeTodo="removeTodo"
     />
   </ul>
 </template>
@@ -54,8 +55,12 @@ export default defineComponent({
   },
   methods: {
     changeTodoStatus(id: number) {
+      console.log('4343');
       const targetTodo = this.todos.find((todo: Todo) => todo.id === id);
       targetTodo && (targetTodo.completed = !targetTodo.completed);
+    },
+    removeTodo(id: number) {
+      this.todos = this.todos.filter((todo: Todo) => todo.id !== id);
     },
   },
 });
