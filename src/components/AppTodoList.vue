@@ -1,67 +1,42 @@
 <template>
   <ul class="todo-list">
     <AppTodoItem
-      v-for="(todo, index) in todos"
-      :key="index"
-      :todo="{
-        id: todo.id,
-        text: todo.text,
-        completed: todo.completed,
-      }"
-      @toggleTodo="changeTodoStatus"
-      @removeTodo="removeTodo"
+      v-for="todo in todos"
+      :key="todo.id"
+      :todo="todo"
+      @toggle-todo="toggleTodo"
+      @remove-todo="removeTodo"
     />
   </ul>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { PropType, defineComponent } from 'vue';
 import AppTodoItem from './AppTodoItem.vue';
 import { Todo } from '@/types/Todo';
-
-interface State {
-  todos: Todo[];
-}
 
 export default defineComponent({
   components: {
     AppTodoItem,
   },
-  data(): State {
-    return {
-      todos: [
-        {
-          id: 0,
-          text: 'Learn the basics of Vue',
-          completed: true,
-        },
-        {
-          id: 1,
-          text: 'Learn the basics of Typescript',
-          completed: false,
-        },
-        {
-          id: 2,
-          text: 'Subscribe to the channel',
-          completed: false,
-        },
-        {
-          id: 3,
-          text: 'Learn the basics of JS',
-          completed: true,
-        },
-      ],
-    };
+  props: {
+    todos: {
+      type: Array as PropType<Todo[]>,
+      required: true,
+    },
   },
+
   methods: {
-    changeTodoStatus(id: number) {
-      console.log('4343');
-      const targetTodo = this.todos.find((todo: Todo) => todo.id === id);
-      targetTodo && (targetTodo.completed = !targetTodo.completed);
+    toggleTodo(id: number) {
+      this.$emit('toggleTodo', id);
     },
     removeTodo(id: number) {
-      this.todos = this.todos.filter((todo: Todo) => todo.id !== id);
+      this.$emit('removeTodo', id);
     },
+  },
+  emits: {
+    toggleTodo: (id: number) => Number.isInteger(id),
+    removeTodo: (id: number) => Number.isInteger(id),
   },
 });
 </script>

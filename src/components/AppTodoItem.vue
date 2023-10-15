@@ -7,7 +7,7 @@
     <div class="todo-item__status">
       <i class="bi bi-check2"></i>
     </div>
-    <span class="todo-item__text"> {{ todo.id }} {{ todo.text }}</span>
+    <span class="todo-item__text">{{ todo.text }}</span>
     <button class="todo-item__remove-button" @click.stop="removeTodo">
       <i class="bi bi-trash3"></i>
     </button>
@@ -15,8 +15,9 @@
 </template>
 
 <script lang="ts">
-import { PropType, defineComponent } from 'vue';
 import { Todo } from '@/types/Todo';
+import { PropType, defineComponent } from 'vue';
+
 export default defineComponent({
   props: {
     todo: {
